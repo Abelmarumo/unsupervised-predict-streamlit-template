@@ -31,15 +31,48 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
-
+from sklearn.metrics.pairwise import cosine_similarity 
+from sklearn.feature_extraction.text import TfidfVectorizer
 # Custom Libraries
 from utils.data_loader import load_movie_titles
-from recommenders.collaborative_based import collab_model
-from recommenders.content_based import content_model
+#from recommenders.collaborative_based import collab_model
+#from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+df = pd.read_csv('resources/data/df_clean_gen.csv')
 
+tf = TfidfVectorizer(analyzer='word', ngram_range=(1,2),
+                     min_df=0, stop_words='english')
+
+tf_gen_matrix = tf.fit_transform(df['genre'].iloc[:40000])
+
+@st.cache(suppress_st_warning=True)
+def sim_matrix(tf_gen_matrix):
+    return cosine_similarity(tf_gen_matrix, tf_gen_matrix)
+
+cosine_sim_authTags =sim_matrix(tf_gen_matrix)
+titles = df['title']
+ind_titles = pd.Series(df.index,index=titles)
+
+def content_generate_top_N_recommendations(movie_list, N=10):
+    m_idx1 = ind_titles[movie_list[0]]
+    m_idx2 = ind_titles[movie_list[1]]
+    m_idx3 = ind_titles[movie_list[2]]
+    
+    s1=list(enumerate(cosine_sim_authTags[m_idx1]))
+    s2=list(enumerate(cosine_sim_authTags[m_idx2]))
+    s3=list(enumerate(cosine_sim_authTags[m_idx3]))
+    
+    s1 = sorted(s1, key=lambda x: x[1], reverse=True)[1:N]
+    s2 = sorted(s2, key=lambda x: x[1], reverse=True)[1:N]
+    s3 = sorted(s3, key=lambda x: x[1], reverse=True)[1:N]
+    
+    s_all = sorted(s1+s2+s3,key=lambda x: x[1], reverse=True)
+    s_10 = s_all[1:N+1] 
+    movie_indices = [i[0] for i in s_10] 
+    
+    return titles.iloc[movie_indices]
 # App declaration
 def main():
 
@@ -73,28 +106,27 @@ def main():
             if st.button("Recommend"):
                 try:
                     with st.spinner('Crunching the numbers...'):
-                        top_recommendations = content_model(movie_list=fav_movies,
-                                                            top_n=10)
+                        top_recommendations = content_generate_top_N_recommendations(fav_movies)
                     st.title("We think you'll like:")
-                    for i,j in enumerate(top_recommendations):
+                    for i,j in enumerate(top_recommendations.values):
                         st.subheader(str(i+1)+'. '+j)
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
 
 
-        if sys == 'Collaborative Based Filtering':
-            if st.button("Recommend"):
-                try:
-                    with st.spinner('Crunching the numbers...'):
-                        top_recommendations = collab_model(movie_list=fav_movies,
-                                                           top_n=10)
-                    st.title("We think you'll like:")
-                    for i,j in enumerate(top_recommendations):
-                        st.subheader(str(i+1)+'. '+j)
-                except:
-                    st.error("Oops! Looks like this algorithm does't work.\
-                              We'll need to fix it!")
+        #if sys == 'Collaborative Based Filtering':
+            #if st.button("Recommend"):
+                #try:
+                    #with st.spinner('Crunching the numbers...'):
+                        #top_recommendations = collab_model(movie_list=fav_movies,
+                                                           #top_n=10)
+                    #st.title("We think you'll like:")
+                    #for i,j in enumerate(top_recommendations):
+                        #st.subheader(str(i+1)+'. '+j)
+                #except:
+                    #st.error("Oops! Looks like this algorithm does't work.\
+                              #We'll need to fix it!")
 
 
     # -------------------------------------------------------------------
