@@ -47,7 +47,7 @@ tf = TfidfVectorizer(analyzer='word', ngram_range=(1,2),
 
 tf_gen_matrix = tf.fit_transform(df['genre'].iloc[:40000])
 
-@st.cache(suppress_st_warning=True)
+@st.cache
 def sim_matrix(tf_gen_matrix):
     return cosine_similarity(tf_gen_matrix, tf_gen_matrix)
 
@@ -78,7 +78,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Exploritory Analysis"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -132,7 +132,7 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
+    if page_selection == "Exploritory Analysis":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
 
