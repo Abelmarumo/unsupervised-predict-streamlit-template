@@ -52,8 +52,7 @@ tf_gen_matrix = tf.fit_transform(df['genre'].iloc[:40000])
 def sim_matrix(tf_gen_matrix):
     return cosine_similarity(tf_gen_matrix, tf_gen_matrix)
 
-with st.spinner('loading...'):
-    cosine_sim_authTags =sim_matrix(tf_gen_matrix)
+cosine_sim_authTags =sim_matrix(tf_gen_matrix)
 
 titles = df['title']
 ind_titles = pd.Series(df.index,index=titles)
