@@ -52,7 +52,9 @@ tf_gen_matrix = tf.fit_transform(df['genre'].iloc[:40000])
 def sim_matrix(tf_gen_matrix):
     return cosine_similarity(tf_gen_matrix, tf_gen_matrix)
 
-cosine_sim_authTags =sim_matrix(tf_gen_matrix)
+with st.spinner('loading...'):
+    cosine_sim_authTags =sim_matrix(tf_gen_matrix)
+
 titles = df['title']
 ind_titles = pd.Series(df.index,index=titles)
 
@@ -93,11 +95,11 @@ def main():
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
-                        'Collaborative Based Filtering'))
+                        'Collaborative Based Filtering(Coming soon)'))
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_1 = st.selectbox('First Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
@@ -145,8 +147,7 @@ def main():
         choice_D= st.sidebar.selectbox("Choose Activity",task1)
         if choice_D=='distribution of genre vs genre_count':
             with Image.open('resources/imgs/EDA_Imges/distribution_of_genre_vs _genre_count.png') as im:
-                st.image(im, caption="Spearstvghbnklvhjkhfdxcjbknlmhfdxfcgvbhjnkmjhfcdcgvjklkjfdfghkjgfhjkljhgfjklkjhgfhjjgfjjgfnvgbnvgfhjbnvgfcvjbnvgjbnvghn", 
-                width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+                st.image(im, caption=None,width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
 
         if choice_D=='distribution of genre vs genre_polarity':
             with Image.open('resources/imgs/EDA_Imges/distribution of genre vs genre_polarity.png') as im:
