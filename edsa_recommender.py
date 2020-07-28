@@ -33,6 +33,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity 
 from sklearn.feature_extraction.text import TfidfVectorizer
+from PIL import Image
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 #from recommenders.collaborative_based import collab_model
@@ -133,8 +134,87 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Exploritory Analysis":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        st.title("Data Exploritory Analysis")
+        task1 = ['distribution of genre vs genre_count','distribution of genre vs genre_polarity',
+                'distribution of genre vs genre_subjectivity','distribution of genre vs rating',
+                'distribution of genre vs tag_polarity','distribution of genre vs tag_subjectivity',
+                'distribution of genre vs title_polarity','distribution of genre vs title_subjectivity',
+                'ecdf of relevance','frequncy of genres','Histogram of rating','Histogram of relevance',
+                'Movies per year','Number of ratings per genre','pairplot of engineered movies data',
+                'Word cloud of genome_tag','Word cloud of genres','Word cloud of tag']
+        choice_D= st.sidebar.selectbox("Choose Activity",task1)
+        if choice_D=='distribution of genre vs genre_count':
+            with Image.open('resources/imgs/EDA_Imges/distribution_of_genre_vs _genre_count.png') as im:
+                st.image(im, caption="Spearstvghbnklvhjkhfdxcjbknlmhfdxfcgvbhjnkmjhfcdcgvjklkjfdfghkjgfhjkljhgfjklkjhgfhjjgfjjgfnvgbnvgfhjbnvgfcvjbnvgjbnvghn", 
+                width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='distribution of genre vs genre_polarity':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs genre_polarity.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='distribution of genre vs genre_subjectivity':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs genre_subjectivity.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')  
+
+        if choice_D=='distribution of genre vs rating':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs rating.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='distribution of genre vs tag_polarity':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs tag_polarity.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='distribution of genre vs tag_subjectivity':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs tag_subjectivity.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='distribution of genre vs title_polarity':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs title_polarity.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG') 
+
+        if choice_D=='distribution of genre vs title_subjectivity':
+            with Image.open('resources/imgs/EDA_Imges/distribution of genre vs title_subjectivity.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='ecdf of relevance':
+            with Image.open('resources/imgs/EDA_Imges/ecdf of relevance.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='frequncy of genres':
+            with Image.open('resources/imgs/EDA_Imges/frequncy of genres.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='Histogram of rating':
+            with Image.open('resources/imgs/EDA_Imges/Histogram of rating.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='Histogram of relevance':
+            with Image.open('resources/imgs/EDA_Imges/Histogram of relevance.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')  
+
+        if choice_D=='Movies per year':
+            with Image.open('resources/imgs/EDA_Imges/Movies per year.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='Number of ratings per genre':
+            with Image.open('resources/imgs/EDA_Imges/Number of ratings per genre.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='pairplot of engineered movies data':
+            with Image.open('resources/imgs/EDA_Imges/pairplot of engineered movies data.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='Word cloud of genome_tag':
+            with Image.open('resources/imgs/EDA_Imges/Word cloud of genome_tag.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG') 
+
+        if choice_D=='Word cloud of genres':
+            with Image.open('resources/imgs/EDA_Imges/Word cloud of genres.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
+
+        if choice_D=='Word cloud of tag':
+            with Image.open('resources/imgs/EDA_Imges/Word cloud of tag.png') as im:
+                st.image(im, caption=None, width=900, use_column_width=False, clamp=False, channels='RGB', format='PNG')
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
